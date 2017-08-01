@@ -1,14 +1,15 @@
 package io.pivotal.catalog.components;
 
-import io.pivotal.catalog.entities.Product;
-import io.pivotal.catalog.events.ProductAddedEvent;
-import io.pivotal.catalog.repositories.ProductRepository;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import io.pivotal.catalog.entities.Product;
+import io.pivotal.catalog.events.ProductAddedEvent;
+import io.pivotal.catalog.events.ProductEditedEvent;
+import io.pivotal.catalog.repositories.ProductRepository;
 
 /*
 * The @ProcessingGroup annotation hooks up this class up to an Axon Event Processor Group.
@@ -33,17 +34,23 @@ import org.springframework.stereotype.Component;
 @ProcessingGroup("amqpEvents")
 public class EventProcessor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EventProcessor.class);
+	private static final Logger LOG = LoggerFactory.getLogger(EventProcessor.class);
 
-    private final ProductRepository repo;
+	private final ProductRepository repo;
 
-    public EventProcessor(ProductRepository repository) {
-        this.repo = repository;
-    }
+	public EventProcessor(ProductRepository repository) {
+		this.repo = repository;
+	}
 
-    @EventHandler // Mark this method as an Axon Event Handler
-    public void on(ProductAddedEvent productAddedEvent) {
-        repo.save(new Product(productAddedEvent.getId(), productAddedEvent.getName()));
-        LOG.info("A product was added! Id={} Name={}", productAddedEvent.getId(), productAddedEvent.getName());
-    }
+	@EventHandler // Mark this method as an Axon Event Handler
+	public void on(ProductAddedEvent productAddedEvent) {
+		repo.save(new Product(productAddedEvent.getId(), productAddedEvent.getName()));
+		LOG.info("A product was added! Id={} Name={}", productAddedEvent.getId(), productAddedEvent.getName());
+	}
+
+	@EventHandler // Mark this method as an Axon Event Handler
+	public void on(ProductEditedEvent productAddedEvent) {
+		repo.save(new Product(productAddedEvent.getId(), productAddedEvent.getName()));
+		LOG.info("A product was edited! Id={} Name={}", productAddedEvent.getId(), productAddedEvent.getName());
+	}
 }

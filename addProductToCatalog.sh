@@ -2,8 +2,8 @@
 # For Linux use uuid, for Mac OS use uuidgen...
 #export UUID=`uuid`
 export UUID=`uuidgen`
-export cmdURL="https://pcf-axon-cqrs-demo-command-side.cfapps.io/"
-export qryURL="https://pcf-axon-cqrs-demo-query-side.cfapps.io/"
+export cmdURL="https://command-side-frail-chiffchaff.cfapps.io/"
+export qryURL="https://query-side-runniest-inulase.cfapps.io/"
 echo "CmdURL= ${cmdURL}"
 echo "QryURL= ${qryURL}"
 echo "Generated ProductID= ${UUID}"
