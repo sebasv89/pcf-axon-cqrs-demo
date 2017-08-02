@@ -1,10 +1,7 @@
 package io.pivotal.catalog.commands;
 
-import org.axonframework.commandhandling.TargetAggregateIdentifier;
-
 public class EditProductInCatalogCommand {
 
-	@TargetAggregateIdentifier
 	private final String id;
 
 	private final String name;
